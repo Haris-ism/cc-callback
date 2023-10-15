@@ -21,8 +21,15 @@ func MainRouter(con controller.ControllerInterface) {
 	}
 	v2:= r.Group("v2")
 	{
-		v2.GET("/inquiry/items",con.InquiryItems)
-		v2.GET("/inquiry/discounts",con.InquiryDiscounts)
+		inquiry:=v2.Group("/inquiry")
+		{
+			inquiry.GET("/items",con.InquiryItems)
+			inquiry.GET("/discounts",con.InquiryDiscounts)
+		}
+		transaction:=v2.Group("/transaction")
+		{
+			transaction.POST("/items",con.TransItem)
+		}
 	}
 
 	logrus.Info("starts")

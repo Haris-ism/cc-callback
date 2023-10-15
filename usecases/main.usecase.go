@@ -21,6 +21,7 @@ type (
 		InsertDB(req models.ItemList) error
 		InquiryItems()([]hm.InquiryItems,error)
 		InquiryDiscounts()([]hm.InquiryDiscounts,error)
+		TransItem(req hm.TransactionItems)(hm.ResponseItems,error)
 	}
 )
 
