@@ -26,20 +26,20 @@ type ResponseMerchantDiscounts struct {
 }
 
 type TransactionItems struct{
-	ItemID			int			`json:"item_id"`
-	Discount		string		`json:"discount"`
-	Quantity		int			`json:"quantity"`
-	CCNumber		string		`json:"cc_number"`
-	CVV				string		`json:"cvv"`
-	Amount			int			`json:"amount"`
+	ItemID			string			`json:"item_id"`
+	Discount		string			`json:"discount"`
+	Quantity		string			`json:"quantity"`
+	CCNumber		string			`json:"cc_number"`
+	CVV				string			`json:"cvv"`
+	Amount			string			`json:"amount"`
 }
 
 type ResponseItems struct{
-	ID			int			`json:"item_id"`
+	ID			string		`json:"item_id"`
 	Name		string		`json:"item_name"`
-	Quantity	int			`json:"quantity"`
+	Quantity	string		`json:"quantity"`
 	CC			string		`json:"cc_number"`
-	Code		[]string	`json:"code"`
+	Code		string		`json:"code"`
 }
 
 type ResponseTransactionItems struct {
