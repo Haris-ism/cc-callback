@@ -1,8 +1,11 @@
 package usecase
 
 import (
+	cModels "cc-callback/controllers/models"
 	host "cc-callback/hosts"
 	hm "cc-callback/hosts/merchant/models"
+	mModels "cc-callback/hosts/merchant/models"
+
 	"cc-callback/models"
 
 	postgre "cc-callback/databases/postgresql"
@@ -21,7 +24,7 @@ type (
 		InsertDB(req models.ItemList) error
 		InquiryItems()([]hm.InquiryItems,error)
 		InquiryDiscounts()([]hm.InquiryDiscounts,error)
-		TransItem(req hm.TransactionItems)(hm.ResponseItems,error)
+		TransItem(req hm.TransactionItems, headers cModels.ReqHeader)(mModels.ResponseItems,error)
 	}
 )
 

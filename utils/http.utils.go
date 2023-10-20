@@ -2,7 +2,6 @@ package utils
 
 import (
 	"cc-callback/constants"
-	"fmt"
 	"net/http"
 
 	"github.com/parnurzeal/gorequest"
@@ -30,19 +29,20 @@ func HTTPRequest(url string, method string, body interface{}, header http.Header
 func HTTPGET(url string, header http.Header)(gorequest.Response,[]byte,error){
 	request:=gorequest.New()
 	request.SetDebug(true)
-	request.Header=header
-	res,data,err:=request.Get(url).End()
+	reqagent := request.Get(url)
+	reqagent.Header = header
+	res,data,err:=request.End()
 	if err!=nil{
 		return res,[]byte(data),err[0]
 	}
-	fmt.Println("ieu data:",data)
 	return res,[]byte(data),nil
 }
 func HTTPPOST(url string,body interface{}, header http.Header)(gorequest.Response,[]byte,error){
 	request:=gorequest.New()
 	request.SetDebug(true)
-	request.Header=header
-	res,data,err:=request.Post(url).Send(body).End()
+	reqagent := request.Post(url)
+	reqagent.Header = header
+	res,data,err:=reqagent.Send(body).End()
 	if err!=nil{
 		return res,[]byte(data),err[0]
 	}

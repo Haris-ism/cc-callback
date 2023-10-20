@@ -30,7 +30,6 @@ type TransactionItems struct{
 	Discount		string			`json:"discount"`
 	Quantity		string			`json:"quantity"`
 	CCNumber		string			`json:"cc_number"`
-	CVV				string			`json:"cvv"`
 	Amount			string			`json:"amount"`
 }
 
