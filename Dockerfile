@@ -1,10 +1,9 @@
 FROM golang:1.19-alpine3.16 AS builder
-
 WORKDIR /app
-
+RUN apk add alpine-sdk
 COPY . .
-
-RUN go build
+# RUN go mod download
+RUN go build -o cc-callback
 
 FROM alpine:3.16
 
@@ -15,8 +14,8 @@ RUN apk update && apk add --no-cache tzdata
 ENV TZ="Asia/Jakarta"
 
 COPY --from=builder /app/cc-callback .
-COPY cc-callback/.env .
+COPY .env .
 
-EXPOSE 8888
+EXPOSE 9091
 
 ENTRYPOINT [ "/app/cc-callback" ]
