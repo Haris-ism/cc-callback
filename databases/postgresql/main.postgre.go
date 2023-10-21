@@ -1,7 +1,6 @@
 package postgre
 
 import (
-	dbs "cc-callback/databases/postgresql/models"
 	"cc-callback/models"
 	"cc-callback/utils"
 
@@ -30,7 +29,6 @@ func InitPostgre() PostgreInterface {
 	} else {
 		logrus.Printf("Init Postgre Success")
 	}
-	db.AutoMigrate(&models.ItemList{},&dbs.Order{})
 
 	return &postgreDB{
 		postgre: db,
