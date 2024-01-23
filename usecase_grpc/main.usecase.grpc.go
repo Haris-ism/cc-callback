@@ -17,6 +17,7 @@ type (
 	}
 	UsecaseGrpcInterface interface {
 		InquiryItems()([]*merchant.InquiryItemsModel, error)
+		InquiryDiscounts()([]*merchant.InquiryDiscountsModel, error)
 	}
 )
 

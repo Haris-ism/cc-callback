@@ -21,11 +21,22 @@ type(
 	}
 	MerchantInterface interface{
 		InquiryItems()(*merchant.InquiryMerchantItemsModel,error)
+		InquiryDiscounts()(*merchant.InquiryMerchantDiscountsModel,error)
 	}
 )
 
 func (g *merchantGrpc)InquiryItems()(*merchant.InquiryMerchantItemsModel,error){
 	res,err:=g.merchantConn.InquiryItems(context.Background(),&emptypb.Empty{})
+	if err != nil {
+		log.Println("Error on grpc merchant :", err)
+		return res,err
+	}
+
+	return res,nil
+}
+
+func (g *merchantGrpc)InquiryDiscounts()(*merchant.InquiryMerchantDiscountsModel,error){
+	res,err:=g.merchantConn.InquiryDiscounts(context.Background(),&emptypb.Empty{})
 	if err != nil {
 		log.Println("Error on grpc merchant :", err)
 		return res,err
