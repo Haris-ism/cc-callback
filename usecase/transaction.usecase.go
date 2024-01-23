@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"cc-callback/constants"
-	cModels "cc-callback/controllers/models"
+	cModels "cc-callback/controller/models"
 	"cc-callback/hosts/merchant/models"
 	"encoding/json"
 	"errors"
