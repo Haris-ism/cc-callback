@@ -7,11 +7,15 @@ import (
 	"fmt"
 	"net/http"
 
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (g *ControllerGrpc) InquiryItems(context.Context, *emptypb.Empty) (*merchant.InquiryMerchantItemsModel, error){
+func (g *ControllerGrpc) InquiryItems(ctx context.Context, empt *emptypb.Empty) (*merchant.InquiryMerchantItemsModel, error){
 	fmt.Println("masuk con")
+	md, ok := metadata.FromIncomingContext(ctx)
+	fmt.Println("ieu md:",md.Get("tes")[0])
+	fmt.Println("ieu ok:",ok)
 	res:=merchant.InquiryMerchantItemsModel{
 		Message:constants.SUCCESS,
 		Code:http.StatusOK,

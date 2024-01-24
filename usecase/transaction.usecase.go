@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func (uc *usecase)TransItem(req models.TransactionItems, headers cModels.ReqHeader)(models.ResponseItems,error){
+func (uc *usecase)TransItem(req models.DecTransactionItems, headers cModels.ReqHeader)(string,error){
 	result:=models.ResponseTransactionItems{}
 	header := make(http.Header)
 	header.Add("Accept", "*/*")

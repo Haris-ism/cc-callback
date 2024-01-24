@@ -14,7 +14,7 @@ func (c *controller)TransItem(ctx *gin.Context){
 		Message: constants.SUCCESS,
 		Code:http.StatusOK,
 	}
-	req:=mModels.TransactionItems{}
+	req:=mModels.DecTransactionItems{}
 	if err:=ctx.BindJSON(&req);err!=nil{
 		res.Message=constants.INVALID_INPUT
 		res.Code=http.StatusBadRequest

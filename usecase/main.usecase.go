@@ -4,7 +4,6 @@ import (
 	cModels "cc-callback/controller/models"
 	host "cc-callback/hosts"
 	hm "cc-callback/hosts/merchant/models"
-	mModels "cc-callback/hosts/merchant/models"
 
 	"cc-callback/models"
 
@@ -25,7 +24,7 @@ type (
 		InquiryItems()([]hm.InquiryItems,error)
 		// InquiryItemss()(*callback.InquiryMerchantItemsModel, error)
 		InquiryDiscounts()([]hm.InquiryDiscounts,error)
-		TransItem(req hm.TransactionItems, headers cModels.ReqHeader)(mModels.ResponseItems,error)
+		TransItem(req hm.DecTransactionItems, headers cModels.ReqHeader)(string,error)
 	}
 )
 
