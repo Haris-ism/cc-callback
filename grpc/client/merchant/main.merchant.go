@@ -4,7 +4,6 @@ import (
 	"cc-callback/protogen/merchant"
 	"cc-callback/utils"
 	"context"
-	"fmt"
 	"log"
 
 	"google.golang.org/grpc"
@@ -14,14 +13,12 @@ import (
 
 type(
 	merchantGrpc struct{
-		merchantConn merchant.InquiryServicesClient
-		// callbackHost		string
-		// inquiryItems		string
-		// inquiryDiscounts	string
+		merchantConn merchant.MerchantServicesClient
 	}
 	MerchantInterface interface{
 		InquiryItems()(*merchant.InquiryMerchantItemsModel,error)
 		InquiryDiscounts()(*merchant.InquiryMerchantDiscountsModel,error)
+		TransItems(ctx context.Context, req *merchant.ReqTransItemsModel) (*merchant.ResMerchantTransModel, error)
 	}
 )
 
@@ -44,19 +41,28 @@ func (g *merchantGrpc)InquiryDiscounts()(*merchant.InquiryMerchantDiscountsModel
 
 	return res,nil
 }
+func (g *merchantGrpc)TransItems(ctx context.Context, req *merchant.ReqTransItemsModel) (*merchant.ResMerchantTransModel, error){
+	
+	res,err:=g.merchantConn.TransItems(ctx,req)
+	if err != nil {
+		log.Println("Error on grpc merchant :", err)
+		return res,err
+	}
+
+	return res,nil
+}
 
 func InitGrpcMerchant()MerchantInterface{
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	fmt.Println("merchant server:",utils.GetEnv("MERCHANT_HOST_GRPC"))
 	conn, err := grpc.Dial(utils.GetEnv("MERCHANT_HOST_GRPC"),opts...)
 	if err!=nil{
-		fmt.Println("failed to dial grpc merchant:",err)
+		log.Println("failed to dial grpc merchant:",err)
 	}
 	
-	merchantConn:=merchant.NewInquiryServicesClient(conn)
-	fmt.Println("grpc merchant connected")
+	inquiryConn:=merchant.NewMerchantServicesClient(conn)
+	log.Println("grpc merchant connected")
 	return &merchantGrpc{
-		merchantConn:merchantConn,
+		merchantConn:inquiryConn,
 	}
 }

@@ -4,7 +4,7 @@ import (
 	"cc-callback/controller_grpc"
 	"cc-callback/protogen/merchant"
 	"cc-callback/utils"
-	"fmt"
+	"log"
 	"net"
 
 	"google.golang.org/grpc"
@@ -13,7 +13,7 @@ import (
 type (
 	GrpcServer struct {
 		Config *grpc.Server
-		merchant.InquiryServicesServer
+		merchant.MerchantServicesServer
 		TCP	net.Listener
 	}
 	ControllerGrpcInterface interface {
@@ -25,16 +25,15 @@ func InitGrpcServer(grpcCon controller_grpc.ControllerGrpc)  {
 
 	listen,err:=net.Listen("tcp",utils.GetEnv("PORT_GRPC"))
 	if err!=nil{
-		fmt.Println("failed to listen tcp:",err)
+		log.Println("failed to listen tcp:",err)
 	}
 
-	fmt.Println("register start")
-	merchant.RegisterInquiryServicesServer(grpcCon.Config,&grpcCon)
-	fmt.Println("register grpc server")
+	merchant.RegisterMerchantServicesServer(grpcCon.Config,&grpcCon)
+	log.Println("register grpc server")
 
 	err=grpcCon.Config.Serve(listen)
 
 	if err!=nil{
-		fmt.Println("failed to listen grpc:",err)
+		log.Println("failed to listen grpc:",err)
 	}
 }
